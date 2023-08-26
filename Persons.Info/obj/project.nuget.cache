@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pZcB3J+Lv5115mXkp5/YHZvoHPD3N7blokGZQG/A5iyvAcea8k5lm4anHHl/fZSVtL/ZD4d0uSLaChWDkTgKjw==",
+  "dgSpecHash": "EwO4JKkS5E1p455aLGYZf+ZG5LNLrTpLOqT3+W2Rh83dGlS1dk4O41Wyopx+0zNWAORaNMXk9rG9cTXI8Hj4Fg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\karac\\source\\repos\\PersonDatabase\\Persons.Info\\Persons.Info.csproj",
+  "projectFilePath": "C:\\Users\\karac\\source\\repos\\StorePersons\\Persons.Info\\Persons.Info.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\karac\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\karac\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

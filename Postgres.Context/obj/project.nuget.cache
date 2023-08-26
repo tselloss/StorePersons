@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2PEAvB4XZaFBVCokypf/9IqOC6TJhE+UnDo6jWxSRucrGxAWNKGaTol+XHPrK4CWNOd7Bnl9zYW7g+/vimXMEQ==",
+  "dgSpecHash": "zLIC7eI19PjpnVehJ0Kjxx34ZPnRBBS44j4KF/YGw/ttQhC7eaKcfIp/weOckcCEI06x3muoMhbsHf+DPJ3zOA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\karac\\source\\repos\\PersonDatabase\\Postgres.Context\\Postgres.Context.csproj",
+  "projectFilePath": "C:\\Users\\karac\\source\\repos\\StorePersons\\Postgres.Context\\Postgres.Context.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\karac\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\karac\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

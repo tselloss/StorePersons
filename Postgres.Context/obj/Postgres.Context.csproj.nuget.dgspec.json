@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\karac\\source\\repos\\PersonDatabase\\Postgres.Context\\Postgres.Context.csproj": {}
+    "C:\\Users\\karac\\source\\repos\\StorePersons\\Postgres.Context\\Postgres.Context.csproj": {}
   },
   "projects": {
-    "C:\\Users\\karac\\source\\repos\\PersonDatabase\\Postgres.Context\\Postgres.Context.csproj": {
+    "C:\\Users\\karac\\source\\repos\\StorePersons\\Postgres.Context\\Postgres.Context.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\karac\\source\\repos\\PersonDatabase\\Postgres.Context\\Postgres.Context.csproj",
+        "projectUniqueName": "C:\\Users\\karac\\source\\repos\\StorePersons\\Postgres.Context\\Postgres.Context.csproj",
         "projectName": "Postgres.Context",
-        "projectPath": "C:\\Users\\karac\\source\\repos\\PersonDatabase\\Postgres.Context\\Postgres.Context.csproj",
+        "projectPath": "C:\\Users\\karac\\source\\repos\\StorePersons\\Postgres.Context\\Postgres.Context.csproj",
         "packagesPath": "C:\\Users\\karac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\karac\\source\\repos\\PersonDatabase\\Postgres.Context\\obj\\",
+        "outputPath": "C:\\Users\\karac\\source\\repos\\StorePersons\\Postgres.Context\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
