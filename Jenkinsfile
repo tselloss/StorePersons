@@ -15,5 +15,11 @@ dotnet build'''
       }
     }
 
+    stage('End') {
+      steps {
+        sh 'exit'
+      }
+    }
+
   }
 }
