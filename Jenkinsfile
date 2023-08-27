@@ -6,11 +6,12 @@ pipeline {
          steps {
             echo "$GIT_BRANCH"
          }
+      }
          stage('Build') {
             steps {
                 bat "msbuild.exe PersonDatabase.csproj /p:Configuration=Release"
             }
         }
-      }
+      
    }
 }
