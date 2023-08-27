@@ -7,17 +7,17 @@ pipeline {
       }
     }
 
-    stage('Build') {
+    stage('Restore') {
       steps {
         sh '''
 
-dotnet build'''
+dotnet restore'''
       }
     }
 
-    stage('End') {
+    stage('Build') {
       steps {
-        sh 'exit'
+        sh 'dotnet build'
       }
     }
 
