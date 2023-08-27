@@ -1,29 +1,18 @@
 pipeline{
-    agent any
-    environment {
-        PATH = "$PATH:/opt/apache-maven-3.8.2/bin"
+    stage('SCM') {
+         echo 'Gathering code from version control'
+         git branch: 'main', url: 'https://github.com/tselloss/StorePersons.git'
     }
-    stages{
-       stage('GetCode'){
-            steps{
-                git 'https://github.com/tselloss/StorePersons.git'
-            }
-         }        
-       stage('Build'){
-            steps{
-                sh 'mvn clean package'
-            }
-         }
-        stage('SonarQube analysis') {
-//    def scannerHome = tool 'SonarScanner 4.0';
-        steps{
-        withSonarQubeEnv('sonarqube-8.9') { 
-        // If you have configured more than one global server connection, you can specify its name
-//      sh "${scannerHome}/bin/sonar-scanner"
-        sh "mvn sonar:sonar"
+    stage('Build') {
+         echo 'Building....'
+         sh 'dotnet --version'
+         sh 'dotnet build PersonDatabase'
+         echo 'Building new feature'
     }
-        }
-        }
-       
+    stage('Test') {
+         echo 'Testing....'
+    }
+    stage('Deploy') {
+         echo 'Deploying....'
     }
 }
