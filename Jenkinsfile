@@ -1,7 +1,7 @@
 pipeline{
     stage('SCM') {
          echo 'Gathering code from version control'
-         git branch: 'main', url: 'https://github.com/tselloss/StorePersons.git'
+         git branch: '${branch}', url: 'https://github.com/tselloss/StorePersons.git'
     }
     stage('Build') {
          echo 'Building....'
