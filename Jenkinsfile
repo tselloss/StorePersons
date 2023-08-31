@@ -9,7 +9,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        dotnetBuild(project: 'PersonDatabase.sln', sdk: '.Net 6')
+        dotnetBuild(project: 'PersonDatabase.sln', sdk: '.Net6')
       }
     }
 
