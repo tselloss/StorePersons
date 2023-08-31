@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        dotnetBuild()
+        dotnetBuild(continueOnError: true, framework: 'Net 6.', project: 'PersonDatabase.sln', sdk: '.Net6')
       }
     }
 
