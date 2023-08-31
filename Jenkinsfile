@@ -9,7 +9,7 @@ pipeline {
 
     stage('Sonarqube') {
       steps {
-        withSonarQubeEnv(installationName: 'Persons', credentialsId: 'squ_4939c0eee0c7f961b9dcfd7faf1784d999a9684f') {
+        withSonarQubeEnv('SonarScanner') {
           dotnetBuild(project: 'PersonDatabase.sln', sdk: '.Net6')
         }
 
