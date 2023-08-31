@@ -1,9 +1,15 @@
 pipeline {
   agent any
   stages {
+    stage('Verify') {
+      steps {
+        sh 'echo "$GIT_BRANCH"'
+      }
+    }
+
     stage('Build') {
       steps {
-        dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
+        dotnetBuild(project: 'PersonDatabase.sln', sdk: '.Net 6')
       }
     }
 
