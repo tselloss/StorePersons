@@ -7,6 +7,7 @@ pipeline {
           dotnetBuild(project: 'PersonDatabase.sln', sdk: '.Net6')
         }
 
+        waitForQualityGate(webhookSecretId: 'Jenkins', credentialsId: 'SonarQubeScanner', abortPipeline: true)
       }
     }
 
