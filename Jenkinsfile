@@ -29,11 +29,11 @@ pipeline {
   stages {
     stage('SonarQube analysis') {
       tools {
-        sonarQube 'SonarQube Scanner 2.8'
+        sonarQube 'SonarScanner'
       }
       steps {
         withSonarQubeEnv('SonarQube Scanner') {
-          sh 'sonar-scanner'
+          sh 'SonarScanner'
         }
       }
     }
