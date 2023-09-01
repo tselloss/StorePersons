@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('SonarScanner') {
       steps {
-        withSonarQubeEnv(installationName: 'SonarQubeScanner', envOnly: true, credentialsId: 'PersonsSonar') {
+        withSonarQubeEnv(installationName: 'SonarQubeScanner', credentialsId: 'PersonsSonar') {
         }
         waitForQualityGate(webhookSecretId: 'Jenkins', credentialsId: 'SonarQubeScanner', abortPipeline: true)
       }
