@@ -1,9 +1,6 @@
 pipeline {
   agent any
-  stages {    
-    stage('SCM') {
-        git 'https://github.com/tselloss/StorePersons.git'
-      }
+  stages {  
     stage('SonarScanner') {
       steps {
         withSonarQubeEnv(installationName: 'sq1', credentialsId: 'PersonsSonar') {
