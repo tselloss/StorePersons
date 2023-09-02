@@ -4,8 +4,10 @@ pipeline {
     stage('SonarScanner') {
       steps {
         withSonarQubeEnv(installationName: 'SonarQubeScanner', credentialsId: 'PersonsSonar') {
-        }
-        waitForQualityGate(webhookSecretId: 'Jenkins', credentialsId: 'SonarQubeScanner', abortPipeline: true)
+        }         
+          timeout(time: 1, unit: 'HOURS') {
+            waitForQualityGate abortPipeline: true
+          }
       }
     }
 
