@@ -1,9 +1,12 @@
 pipeline {
   agent any
-  stages {
+  stages {    
+    stage('SCM') {
+        git 'https://github.com/foo/bar.git'
+      }
     stage('SonarScanner') {
       steps {
-        withSonarQubeEnv(installationName: 'SonarQubeScanner', credentialsId: 'PersonsSonar') {
+        withSonarQubeEnv(installationName: 'sq1', credentialsId: 'PersonsSonar') {
           dotnetBuild(project: 'PersonDatabase.sln', sdk: '.Net6')
         }         
           timeout(time: 1, unit: 'HOURS') {
@@ -14,3 +17,5 @@ pipeline {
 
   }
 }
+
+
