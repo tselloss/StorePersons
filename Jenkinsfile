@@ -7,8 +7,8 @@ pipeline {
 					def msbuildHome = tool name: 'MSBuild', type: 'hudson.plugins.msbuild.MsBuildInstallation'
 					def scannerHome = tool 'sq1'
 					withSonarQubeEnv(credentialsId: 'Users', installationName: 'SonarQubeScanner') {
-						bat "\"${scannerHome}\\SonarScanner.MSBuild.exe\" begin /k:\"StorePersons\""
-						bat "\"${msbuildHome}\\MSBuild.exe\" PersonDatabase.sln"
+						bat "\"${scannerHome}\\SonarScanner.MSBuild.exe begin /k:"myKey" 
+						bat "\"${msbuildHome}\\MSBuild.exe" "PersonDatabase.sln" /t:Rebuild
 						bat "\"${scannerHome}\\SonarScanner.MSBuild.exe\" end"
 					}
 				
