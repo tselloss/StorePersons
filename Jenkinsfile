@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOTNET_HOME = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetToolInstallation'
+        DOTNET_HOME = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
         DOTNET_COMMAND = "${DOTNET_HOME}/dotnet"
     }
     stages {
