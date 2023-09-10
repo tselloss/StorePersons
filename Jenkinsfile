@@ -8,9 +8,6 @@ pipeline {
         }
         stage('Build') {
             steps {
-                script {
-
-                    
                 dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
                 dotnetClean(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
                 dotnetListPackage(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
@@ -21,8 +18,6 @@ pipeline {
                 dotnetRestore(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
                 dotnetTest(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
                 dotnetToolRestore(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-
-                }
             }
         }
         stage('SonarQube') {
