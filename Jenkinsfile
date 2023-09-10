@@ -12,17 +12,13 @@ pipeline {
             }
         }
            stage('Restore') {
-            steps {                
-                dotnetClean(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')                
+            steps {                           
                 dotnetRestore(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
             }
         }
            stage('Build') {
             steps {                
-                dotnetClean(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')                
-                dotnetRestore(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
                 dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                dotnetPublish(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
             }
         }
            stage('Publish') {
