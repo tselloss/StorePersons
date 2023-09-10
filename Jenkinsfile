@@ -7,17 +7,11 @@ pipeline {
             }
         }
         stage('Build') {
-            steps {
-                dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                dotnetClean(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                dotnetListPackage(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                dotnetNuGetDelete(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                dotnetNuGetPush(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                dotnetPack(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                dotnetPublish(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
+            steps {                
+                dotnetClean(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')                
                 dotnetRestore(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                dotnetTest(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                dotnetToolRestore(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
+                dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
+                dotnetPublish(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
             }
         }
         stage('SonarQube') {
