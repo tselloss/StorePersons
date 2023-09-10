@@ -6,11 +6,27 @@ pipeline {
                 git(url: 'https://github.com/tselloss/StorePersons.git', branch: 'main', credentialsId: 'Jenkins_authorization')
             }
         }
-        stage('Build') {
+        stage('Clean') {
+            steps {                
+                dotnetClean(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')         
+            }
+        }
+           stage('Restore') {
+            steps {                
+                dotnetClean(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')                
+                dotnetRestore(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
+            }
+        }
+           stage('Build') {
             steps {                
                 dotnetClean(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')                
                 dotnetRestore(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
                 dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
+                dotnetPublish(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
+            }
+        }
+           stage('Publish') {
+            steps {                
                 dotnetPublish(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
             }
         }
