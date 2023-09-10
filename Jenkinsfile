@@ -7,20 +7,21 @@ pipeline {
             }
         }
         stage('Build') {
-            steps {
-                script {
-                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
-                    def dotnetCommand = "${dotnetHome}/dotnet"
-                    def dotnetSdkEnv = ["DOTNET_HOME=${dotnetHome}", "PATH+DOTNET=${dotnetHome}"]
+    steps {
+        script {
+            def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+            def dotnetCommand = "${dotnetHome}/dotnet"
+            def dotnetSdkEnv = ["DOTNET_HOME=${dotnetHome}", "PATH+DOTNET=${dotnetHome}"]
 
-                    sh """
-                    ${dotnetCommand} --version
-                    ${dotnetCommand} restore
-                    ${dotnetCommand} build PersonDatabase.sln
-                    """
-                }
-            }
+            sh """
+            ${dotnetCommand} --version
+            ${dotnetCommand} restore
+            ${dotnetCommand} build PersonDatabase.sln
+            """
         }
+    }
+}
+
         stage('SonarQube') {
             steps {
                 withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
