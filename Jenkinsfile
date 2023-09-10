@@ -15,9 +15,9 @@ pipeline {
     stage('SonarQube') {
         steps{            
             withSonarQubeEnv(installationName: 'sonarqube-10.1', credentialsId: 'PToken') {
-                    bat "dotnet sonarscanner begin /k:\"PersonsDatabase\""
+                    sh "dotnet sonarscanner begin /k:\"PersonsDatabase\""
                     dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                    bat "dotnet sonarscanner end"      
+                    sh "dotnet sonarscanner end"      
                  }            
             }
         }
