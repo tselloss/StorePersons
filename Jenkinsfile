@@ -14,8 +14,8 @@ pipeline {
     }
     stage('SonarQube') {
         steps{            
-            withSonarQubeEnv(installationName: 'sq1', credentialsId: 'sonarqube-10.1') {
-          dotnetBuild(sdk: '.Net6', project: 'PersonsDatabase')
+            withSonarQubeEnv(installationName: 'sonarqube-10.1', credentialsId: 'PToken') {
+                    dotnetBuild(sdk: '.Net6', project: 'PersonsDatabase')
                  }            
             }
         }
