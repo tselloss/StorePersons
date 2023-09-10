@@ -6,7 +6,6 @@ pipeline {
         git(url: 'https://github.com/tselloss/StorePersons.git', branch: 'main', credentialsId: 'Jenkins_authorization')
       }
     }
-
     stage('Build') {
       steps {
         dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
@@ -15,9 +14,7 @@ pipeline {
     stage('SonarQube') {
         steps{            
             withSonarQubeEnv(installationName: 'sonarqube-10.1', credentialsId: 'PToken') {
-                    sh "dotnet sonarscanner begin /k:\"PersonsDatabase\""
-                    dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                    sh "dotnet sonarscanner end"      
+                    dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')  
                  }            
             }
         }
