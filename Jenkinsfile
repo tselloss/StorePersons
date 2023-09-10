@@ -3,10 +3,15 @@ pipeline {
   stages {
     stage('Git Checkout') {
       steps {
-        git 'https://github.com/tselloss/StorePersons.git'
+        git(url: 'https://github.com/tselloss/StorePersons.git', branch: 'main', credentialsId: 'Jenkins_authorization')
       }
     }
+
+    stage('Build') {
+      steps {
+        dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
+      }
+    }
+
   }
 }
-
-
