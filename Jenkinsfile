@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        SONARQUBE_SCANNER_HOME = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'    }
+        SONARQUBE_SCANNER_HOME = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'    
         DOTNET_HOME = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
         DOTNET_COMMAND = "${DOTNET_HOME}/dotnet"
     }
