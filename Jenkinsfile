@@ -13,7 +13,7 @@ pipeline {
     }
     stage('SonarQube') {
         steps{            
-            withSonarQubeEnv(installationName: 'sonarqube-10.1', credentialsId: 'PToken') {
+            withSonarQubeEnv(installationName: 'sonarqube-10.1', credentialsId: 'PersonsToken') {
                     dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')  
                  }            
             }
