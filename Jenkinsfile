@@ -15,12 +15,16 @@ pipeline {
     stage('SonarQube') {
         steps{
             withSonarQubeEnv('sonarqube-10.1') {
-                dotnet sonarscanner begin /k:"PersonsDatabase" /d:sonar.host.url="https://eac2-5-203-227-180.ngrok-free.app"  /d:sonar.token="sqp_a52fe29bb8ddb57cf88f7e113fe3191ad29e12c7"
-                dotnet build
-                dotnet sonarscanner end /d:sonar.token="sqp_a52fe29bb8ddb57cf88f7e113fe3191ad29e12c7"  
-                
+                    sh '''\
+                        sonar-scanner \
+                        -Dsonar.projectKey=PersonsDatabase \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=https://eac2-5-203-227-180.ngrok-free.app \
+                        -Dsonar.login=sqp_a52fe29bb8ddb57cf88f7e113fe3191ad29e12c7
+                    '''
             }
         }
+    } 
     } 
   }
 }
