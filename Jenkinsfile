@@ -6,24 +6,18 @@ pipeline {
         git(url: 'https://github.com/tselloss/StorePersons.git', branch: 'main', credentialsId: 'Jenkins_authorization')
       }
     }
-stage('SonarQube') {
-        environment { 
-                MSBUILD_SQ_SCANNER_HOME = tool name: 'sq1'
+
+    stage('Build') {
+      steps {
+        dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
+      }
+    }
+    stage('SonarQube') {
+        steps{            
+            withSonarQubeEnv(installationName: 'sq1', credentialsId: 'sonarqube-10.1') {
+          dotnetBuild(sdk: '.Net6', project: 'PersonsDatabase')
+                 }            
             }
-         withSonarQubeEnv(installationName: 'sq1', credentialsId: 'sonarqube-10.1') {
-          dotnetBuild(sdk: '.Net6', project: 'PersonsDatabase.sln')
         }
     } 
-   
-    } 
   }
-
-
-
-
-
-
-
-
-
-
