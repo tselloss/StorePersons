@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Git Checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/tselloss/StorePersons.git'
+        git 'https://github.com/tselloss/StorePersons.git'
       }
     }
   }
