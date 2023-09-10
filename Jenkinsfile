@@ -13,12 +13,11 @@ pipeline {
       }
     }
     stage('SonarQube') {
-      def scannerHome = tool 'sonarqube-10.1'
         steps{            
             withSonarQubeEnv(installationName: 'sonarqube-10.1', credentialsId: 'PToken') {
-                    bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"PersonsDatabase\""
+                    bat "dotnet sonarscanner begin /k:\"PersonsDatabase\""
                     dotnetBuild(continueOnError: true, project: 'PersonDatabase.sln', sdk: '.Net6')
-                    bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"      
+                    bat "dotnet sonarscanner end"      
                  }            
             }
         }
