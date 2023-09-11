@@ -34,9 +34,9 @@ pipeline {
         stage('Code Quality Check via SonarQube') {
                 steps {
                     script {
-                    def scannerHome = tool 'sq1';
+                    def scannerHome = tool 'sonarscanner';
                        withSonarQubeEnv(credentialsId: 'gene-token'){
-                        sh "${tool("sonarscanner")}/bin/sonar-scanner \
+                        sh "/var/jenkins_home/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner \
                         -Dsonar.projectKey=${env.PROJECTKEY} \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=${env.SONARURL} \
