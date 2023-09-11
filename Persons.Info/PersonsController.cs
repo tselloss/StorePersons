@@ -19,11 +19,12 @@ namespace PersonDatabase.Controllers
 
         public PersonsController(IPersonsInfo personInfo, ILogger<PersonsController> logger, IMapper mapper, PersonsInfoService personInfoService)
         {
-            _logger = logger ?? throw new ArgumentException(nameof(logger));
-            _personsInfo = personInfo ?? throw new ArgumentException(nameof(personInfo));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _personsInfo = personInfo ?? throw new ArgumentNullException(nameof(personInfo));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _userInfoService = personInfoService ?? throw new ArgumentNullException(nameof(personInfoService));
         }
+
 
         [HttpGet("api/users")]
         public async Task<ActionResult<IEnumerable<PersonsInfo>>> GetAllUsersAsync()
@@ -40,6 +41,20 @@ namespace PersonDatabase.Controllers
         [HttpGet("api/userById/{id}")]
         public async Task<ActionResult<PersonsInfo>> GetUserInfoByIdAsync(int id)
         {
+            //TODO
+            var user = await _personsInfo.GetUserInfoByIdAsync(id);
+            if (user == null)
+            {
+                _logger.LogInformation($"We have no user on Db with this id: {id} ");
+                return NoContent();
+            }
+            return Ok(_mapper.Map<PersonsEntity>(user));
+        }
+
+        [HttpGet("api/userById/{id}")]
+        public async Task<ActionResult<PersonsInfo>> GetUserInfoByIdAsync1(int id)
+        {
+            //TODO
             var user = await _personsInfo.GetUserInfoByIdAsync(id);
             if (user == null)
             {

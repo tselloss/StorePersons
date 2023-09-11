@@ -7,6 +7,7 @@ namespace PersonDatabase.PostgresContext
     {
         public DbSet<PersonsEntity> PersonsInfo { get; set; }
 
+        // TODO: Fix this later
         public PostgresDbContext(DbContextOptions<PostgresDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

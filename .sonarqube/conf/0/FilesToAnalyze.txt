@@ -1,0 +1,2 @@
+﻿C:\Users\karac\source\repos\StorePersons\Postgres.Context\Entities\PersonsEntity.cs
+C:\Users\karac\source\repos\StorePersons\Postgres.Context\PostgresContext\PostgresDbContext.cs

@@ -1,0 +1,5 @@
+﻿C:\Users\karac\source\repos\StorePersons\Persons.Info\Interface\IPersonsInfo.cs
+C:\Users\karac\source\repos\StorePersons\Persons.Info\Model\PersonsInfo.cs
+C:\Users\karac\source\repos\StorePersons\Persons.Info\PersonsController.cs
+C:\Users\karac\source\repos\StorePersons\Persons.Info\Profiles\PersonsProfile.cs
+C:\Users\karac\source\repos\StorePersons\Persons.Info\Repository\PersonsInfoService.cs

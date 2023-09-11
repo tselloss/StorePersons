@@ -1,0 +1,9 @@
+﻿C:\Users\karac\source\repos\StorePersons\PersonDatabase\Program.cs
+C:\Users\karac\source\repos\StorePersons\PersonDatabase\obj\Debug\net6.0\PersonDatabase.GlobalUsings.g.cs
+C:\Users\karac\source\repos\StorePersons\PersonDatabase\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs
+C:\Users\karac\source\repos\StorePersons\PersonDatabase\obj\Debug\net6.0\PersonDatabase.AssemblyInfo.cs
+C:\Users\karac\source\repos\StorePersons\PersonDatabase\obj\Debug\net6.0\PersonDatabase.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\karac\source\repos\StorePersons\PersonDatabase\appsettings.Development.json
+C:\Users\karac\source\repos\StorePersons\PersonDatabase\appsettings.json
+C:\Users\karac\source\repos\StorePersons\PersonDatabase\Properties\launchSettings.json
+C:\Users\karac\source\repos\StorePersons\PersonDatabase\Properties\PublishProfiles\FolderProfile.pubxml
