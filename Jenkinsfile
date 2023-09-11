@@ -1,14 +1,9 @@
 pipeline {
     agent any
-     environment {
-        // sonarscanner
-
-        PROJECTKEY= 'PersonsDatabase'
-        SONARURL = 'http://localhost:9000'
-        LOGIN= 'squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4'
-
-
-    } 
+    environment {
+        dotnetTool = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+         directory = pwd()
+    }
     stages {
         stage('Git Checkout') {
             steps {
@@ -29,25 +24,21 @@ pipeline {
                 }
             }
         }
-      
-
-        stage('Code Quality Check via SonarQube') {
-                steps {
-                    script {
-                    def scannerHome = tool 'sonarscanner';
-                       withSonarQubeEnv(credentialsId: 'gene-token'){
-                        sh "/var/jenkins_home/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner \
-                        -Dsonar.projectKey=${env.PROJECTKEY} \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=${env.SONARURL} \
-                        -Dsonar.login=${env.LOGIN}"
-                            }
-                        }
-                    }
+        stage('SonarQube') {
+            steps {
+                withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
+                    sh 'cd ${directory}'
+                    sh 'cd PersonDatabase'
+                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+                    def dotnetCommand = "${dotnetHome}/dotnet"
+                    sh """ 
+                    ${dotnetCommand} sonarscanner begin /k:"PersonsDatabase" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
+                    ${dotnetCommand} build
+                    ${dotnetCommand} sonarscanner end /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
+                    """
                 }
-
-
-        
+            }
+        }
         stage("Quality Gate") {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
