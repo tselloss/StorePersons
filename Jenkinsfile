@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
     stages {
@@ -9,10 +8,10 @@ pipeline {
         }
         stage('Build') {
             steps {
-                script {  
+                script {
                     def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
                     def dotnetCommand = "${dotnetHome}/dotnet"
-                    def dotnetSdkEnv = ["DOTNET_HOME=${dotnetHome}", "PATH+DOTNET=${dotnetHome}"]
+
                     sh """
                     ${dotnetCommand} --version
                     ${dotnetCommand} restore
@@ -23,10 +22,15 @@ pipeline {
         }
         stage('SonarQube') {
             steps {
-                sh '''dotnet sonarscanner begin /k:"PersonsDatabase" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
-                    '''
-        sh 'dotnet build'
-        sh 'dotnet sonarscanner end /d:sonar.token="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"'
+                withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
+                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+                    def dotnetCommand = "${dotnetHome}/dotnet"
+                    sh """ 
+                    ${dotnetCommand} sonarscanner begin /k:"PersonsDatabase" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
+                    ${dotnetCommand} build
+                    ${dotnetCommand} sonarscanner end /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
+                    """
+                }
             }
         }
         stage("Quality Gate") {
@@ -34,7 +38,7 @@ pipeline {
                 timeout(time: 5, unit: 'MINUTES') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
                     // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate(abortPipeline: true, credentialsId: 'gene-token')
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
