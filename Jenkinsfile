@@ -1,6 +1,4 @@
-def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
-def dotnetCommand = "${dotnetHome}/dotnet"
-def dotnetSdkEnv = ["DOTNET_HOME=${dotnetHome}", "PATH+DOTNET=${dotnetHome}"]
+
 pipeline {
     agent any
     stages {
@@ -12,6 +10,9 @@ pipeline {
         stage('Build') {
             steps {
                 script {  
+                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+def dotnetCommand = "${dotnetHome}/dotnet"
+def dotnetSdkEnv = ["DOTNET_HOME=${dotnetHome}", "PATH+DOTNET=${dotnetHome}"]
                     sh """
                     ${dotnetCommand} --version
                     ${dotnetCommand} restore
@@ -23,11 +24,16 @@ pipeline {
         stage('SonarQube') {
             steps {
                 withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
+                    script { 
+                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+                    def dotnetCommand = "${dotnetHome}/dotnet"
+                    def dotnetSdkEnv = ["DOTNET_HOME=${dotnetHome}", "PATH+DOTNET=${dotnetHome}"]
                     sh """ 
                     ${dotnetCommand} sonarscanner begin /k:"PersonsDatabase" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
                     ${dotnetCommand} build
                     ${dotnetCommand} sonarscanner end /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
                     """
+                    }
                 }
             }
         }
