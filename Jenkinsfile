@@ -1,5 +1,14 @@
 pipeline {
     agent any
+     environment {
+        // sonarscanner
+
+        PROJECTKEY= 'PersonsDatabase'
+        SONARURL = 'http://localhost:9000'
+        LOGIN= 'squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4'
+
+
+    } 
     stages {
         stage('Git Checkout') {
             steps {
@@ -20,22 +29,25 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube') {
-            steps {
-                withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
-                    
-                script {
-                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
-                    def dotnetCommand = "${dotnetHome}/dotnet"
-                    sh """ 
-                    ${dotnetCommand} sonarscanner begin /k:"PersonsDatabase" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
-                    ${dotnetCommand} build
-                    ${dotnetCommand} sonarscanner end /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
-                    """
+      
+
+        stage('Code Quality Check via SonarQube') {
+                steps {
+                    script {
+                    def scannerHome = tool 'sq1';
+                       withSonarQubeEnv(credentialsId: 'gene-token'){
+                        sh "${tool("sonarscanner")}/bin/sonar-scanner \
+                        -Dsonar.projectKey=${env.PROJECTKEY} \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=${env.SONARURL} \
+                        -Dsonar.login=${env.LOGIN}"
+                            }
+                        }
+                    }
                 }
-                }
-            }
-        }
+
+
+        
         stage("Quality Gate") {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
