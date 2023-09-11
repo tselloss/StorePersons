@@ -10,7 +10,7 @@ pipeline {
             steps {	
                sh 'dotnet clean var/jenkins_home/workspace/Pipe/PersonsDatabase.sln'                          
                sh 'dotnet restore var/jenkins_home/workspace/Pipe/PersonsDatabase.sln'                          
-               sh 'dotnet buiold var/jenkins_home/workspace/Pipe/PersonsDatabase.sln'                          
+               sh 'dotnet build var/jenkins_home/workspace/Pipe/PersonsDatabase.sln'                          
             }
         }
         stage('SonarQube') {
