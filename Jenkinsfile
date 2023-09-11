@@ -6,11 +6,19 @@ pipeline {
                 git(url: 'https://github.com/tselloss/StorePersons.git', branch: 'main', credentialsId: 'Jenkins_authorization')
             }
         }
-        stage('Build') {
-            steps {	
-               sh 'dotnet clean var/jenkins_home/workspace/Pipe/PersonsDatabase.sln'                          
-               sh 'dotnet restore var/jenkins_home/workspace/Pipe/PersonsDatabase.sln'                          
-               sh 'dotnet build var/jenkins_home/workspace/Pipe/PersonsDatabase.sln'                          
+       stage('Build') {
+            steps {
+                script {
+                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+                    def dotnetCommand = "${dotnetHome}/dotnet"
+                    def dotnetSdkEnv = ["DOTNET_HOME=${dotnetHome}", "PATH+DOTNET=${dotnetHome}"]
+
+                    sh """
+                    ${dotnetCommand} --version
+                    ${dotnetCommand} restore
+                    ${dotnetCommand} build PersonDatabase.sln
+                    """
+                }
             }
         }
         stage('SonarQube') {
