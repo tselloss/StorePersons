@@ -24,8 +24,8 @@ pipeline {
         stage('SonarQube') {
             steps {
                 withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
-                    dotnetRestore(project: 'PersonsDatabase', sdk: '.Net6')
-                    dotnetBuild(project: 'PersonsDatabase', sdk: '.Net6')
+                    dotnetRestore(project: 'PersonsDatabase.sln', sdk: '.Net6')
+                    dotnetBuild(project: 'PersonsDatabase.sln', sdk: '.Net6')
                 }
             }
         }
