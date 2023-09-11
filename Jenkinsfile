@@ -1,3 +1,6 @@
+def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+def dotnetCommand = "${dotnetHome}/dotnet"
+def dotnetSdkEnv = ["DOTNET_HOME=${dotnetHome}", "PATH+DOTNET=${dotnetHome}"]
 pipeline {
     agent any
     stages {
@@ -8,11 +11,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                script {
-                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
-                    def dotnetCommand = "${dotnetHome}/dotnet"
-                    def dotnetSdkEnv = ["DOTNET_HOME=${dotnetHome}", "PATH+DOTNET=${dotnetHome}"]
-
+                script {  
                     sh """
                     ${dotnetCommand} --version
                     ${dotnetCommand} restore
