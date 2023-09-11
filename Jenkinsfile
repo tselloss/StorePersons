@@ -23,6 +23,8 @@ pipeline {
         stage('SonarQube') {
             steps {
                 withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
+                    
+                script {
                     def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
                     def dotnetCommand = "${dotnetHome}/dotnet"
                     sh """ 
@@ -30,6 +32,7 @@ pipeline {
                     ${dotnetCommand} build
                     ${dotnetCommand} sonarscanner end /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
                     """
+                }
                 }
             }
         }
