@@ -13,8 +13,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
-                    def dotnetCommand = "${dotnetHome}/dotnet"
+                    dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+                    dotnetCommand = "${dotnetHome}/dotnet"
 
                     sh """
                     ${dotnetCommand} --version
@@ -29,8 +29,8 @@ pipeline {
                 withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
                     sh 'cd ${directory}'
                     sh 'cd PersonDatabase'
-                    def dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
-                    def dotnetCommand = "${dotnetHome}/dotnet"
+                    dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
+                    dotnetCommand = "${dotnetHome}/dotnet"
                     sh """ 
                     ${dotnetCommand} sonarscanner begin /k:"PersonsDatabase" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
                     ${dotnetCommand} build
