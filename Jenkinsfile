@@ -23,10 +23,10 @@ pipeline {
         }
         stage('SonarQube') {
             steps {
-                withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
-                    dotnetRestore(project: 'PersonsDatabase.sln', sdk: '.Net6')
-                    dotnetBuild(project: 'PersonsDatabase.sln', sdk: '.Net6')
-                }
+                sh '''dotnet sonarscanner begin /k:"PersonsDatabase" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
+                    '''
+        sh 'dotnet build'
+        sh 'dotnet sonarscanner end /d:sonar.token="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"'
             }
         }
         stage("Quality Gate") {
