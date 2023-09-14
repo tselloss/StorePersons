@@ -18,12 +18,12 @@ pipeline {
             }
         }
         
-        stage('OWASP Dependency Check') {
-            steps {
-                dependencyCheck additionalArguments: ' --scan ./ ', odcInstallation: 'DC'
-                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
+        // stage('OWASP Dependency Check') {
+        //     steps {
+        //         dependencyCheck additionalArguments: ' --scan ./ ', odcInstallation: 'DC'
+        //             dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        //     }
+        // }
         
         // stage('Trivy FS SCan') {
         //     steps {
@@ -31,14 +31,17 @@ pipeline {
         //     }
         // }
         
-        // stage('Sonarqube Analysis') {
-        //     steps {
+         stage('Sonarqube Analysis') {
+            steps {
                 
-        //         withSonarQubeEnv('sonar'){
-        //           sh' dotnet sonarscanner begin /k:"PersonsDatabase"'
-        //              sh' dotnet build PersonsDatabase.sln'
-        //              sh' dotnet sonarscanner end '
-        //        }
+                withSonarQubeEnv('sonar'){
+                  sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=dotnet-demo \
+                    -Dsonar.projectKey=dotnet-demo ''' 
+               }
+                
+               
+            }
+        }
                 
                
         //     }
