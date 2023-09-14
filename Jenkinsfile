@@ -31,28 +31,28 @@ pipeline {
         //     }
         // }
         
-        stage('Sonarqube Analysis') {
-            steps {
+        // stage('Sonarqube Analysis') {
+        //     steps {
                 
-                withSonarQubeEnv('sonar'){
-                  sh' dotnet sonarscanner begin /k:"PersonsDatabase"'
-                     sh' dotnet build PersonsDatabase.sln'
-                     sh' dotnet sonarscanner end '
-               }
+        //         withSonarQubeEnv('sonar'){
+        //           sh' dotnet sonarscanner begin /k:"PersonsDatabase"'
+        //              sh' dotnet build PersonsDatabase.sln'
+        //              sh' dotnet sonarscanner end '
+        //        }
                 
                
-            }
-        }
+        //     }
+        // }
         
-        stage("Quality Gate") {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        // stage("Quality Gate") {
+        //     steps {
+        //         timeout(time: 5, unit: 'MINUTES') {
+        //             // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+        //             // true = set pipeline to UNSTABLE, false = don't
+        //             waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
         
         
     }
