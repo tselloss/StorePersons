@@ -1,44 +1,48 @@
 pipeline {
     agent any
-    environment {
-        dotnetTool = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
-         directory = pwd()
+    
+    tools{
+        
+        jdk 'jdk17'
     }
+    
+    environment {
+        
+        SCANNER_HOME= tool 'sonar-scanner'
+    }
+
     stages {
-        stage('Git Checkout') {
+        stage('Git Checkout ') {
             steps {
                 git(url: 'https://github.com/tselloss/StorePersons.git', branch: 'main', credentialsId: 'Jenkins_authorization')
             }
         }
-        stage('Build') {
+        
+        stage('OWASP Dependency Check') {
             steps {
-                script {
-                    dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
-                    dotnetCommand = "${dotnetHome}/dotnet"
-
-                    sh """
-                    ${dotnetCommand} --version
-                    ${dotnetCommand} restore
-                    ${dotnetCommand} build PersonDatabase.sln
-                    """
-                }
+                dependencyCheck additionalArguments: ' --scan ./ ', odcInstallation: 'DC'
+                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-        stage('SonarQube') {
+        
+        // stage('Trivy FS SCan') {
+        //     steps {
+        //         sh "trivy fs ."
+        //     }
+        // }
+        
+        stage('Sonarqube Analysis') {
             steps {
-                withSonarQubeEnv(installationName: 'server-sonar', credentialsId: 'gene-token') {
-                    sh 'cd ${directory}'
-                    sh 'cd PersonDatabase'
-                    dotnetHome = tool name: '.Net6', type: 'io.jenkins.plugins.dotnet.DotNetSDK'
-                    dotnetCommand = "${dotnetHome}/dotnet"
-                    sh """ 
-                    ${dotnetCommand} sonarscanner begin /k:"PersonsDatabase" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
-                    ${dotnetCommand} build
-                    ${dotnetCommand} sonarscanner end /d:sonar.login="squ_7769ef3b9086b36be1acb25e1d8ee6d2aedd40f4"
-                    """
-                }
+                
+                withSonarQubeEnv('sonar'){
+                  sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=StorePersons \
+                    -Dsonar.projectKey=StorePersons ''' 
+               }
+                
+               
             }
         }
+        
         stage("Quality Gate") {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
@@ -48,5 +52,8 @@ pipeline {
                 }
             }
         }
+        
+        
     }
 }
+
