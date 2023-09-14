@@ -35,8 +35,9 @@ pipeline {
             steps {
                 
                 withSonarQubeEnv('sonar'){
-                  sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=StorePersons \
-                    -Dsonar.projectKey=StorePersons ''' 
+                  sh' dotnet sonarscanner begin /k:"PersonsDatabase"'
+                     sh' dotnet build PersonsDatabase.sln'
+                     sh' dotnet sonarscanner end '
                }
                 
                
