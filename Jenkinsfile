@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools{
-        sdk '.Net6'
+        tool name: '.Net6', type: 'dotnetsdk'
         jdk 'jdk17'
     }
     
